@@ -33,11 +33,12 @@
 
   /etc/icedove/pref/ r,
   /etc/icedove/pref/** r,
-  /etc/xul-ext/enigmail.js r,
+  /etc/xul-ext/** r,
   /etc/mime.types r,
   /etc/fonts/fonts.conf r,
   /etc/mailcap r,
-
+  /etc/timezone r,
+  
   @{PROC}/[0-9]*/task/[0-9]*/stat r,
   @{PROC}/[0-9]*/stat r,
   @{PROC}/[0-9]*/mountinfo r,
@@ -53,13 +54,13 @@
   /usr/share/themes/** r,
   /usr/share/iceowl-extension/chrome/** r,
   /usr/share/mozilla/extensions/** r,
-  /usr/share/xul-ext/torbirdy/** r,
+  /usr/share/xul-ext/** r,
   /usr/share/applications/** r,
   /usr/share/glib-2.0/schemas/* r,
 
   # Open links. Run the browser unconfined by default.
   # If a profile exists, it will be used.
-  /usr/bin/torbrowser Ux,
+  /usr/bin/torbrowser Ux,	# Anonymity distribution.
   /usr/lib/iceweasel/iceweasel Ux,
 
   # Required for creating an account.
@@ -67,6 +68,7 @@
   @{HOME}/.config/mimeapps* rwk,
   @{HOME}/.local/share/applications/ rwk,
   @{HOME}/.local/share/applications/** rwk,
+  /run/user/1000/dconf/ rwk,
   /run/user/1000/dconf/user rwk,
   /etc/gai.conf r,
   /usr/share/hunspell/ r,
@@ -82,7 +84,6 @@
   /rw/usrlocal/share/fonts/ rwk,
   /rw/usrlocal/share/applications/ r,
   /rw/usrlocal/share/applications/** r,
-  /rw/usrlocal/lib/python2.7/dist-packages/ r,
   @{HOME}/.local/share/gvfs-metadata/ r,
   @{HOME}/.local/share/gvfs-metadata/** r,
   @{HOME}/.config/qvm-mru-filecopy rwk,
@@ -108,6 +109,27 @@
   /dev/xen/* rw,
   @{PROC}/xen/privcmd rw,
 
-  # VirtualBox.
+  # ubuntu
+  network,
+  @{HOME}/.config/ibus/bus/ rw,
+  /etc/thunderbird/syspref.js r,
+  /usr/lib/firefox/firefox.sh Ux,
+
+  # VirtualBox (Whonix KDE).
+  capability sys_ptrace,
+  ptrace peer=usr.lib.icedove.icedove,
+  capability net_raw,
+  capability net_broadcast,
   deny /dev/vboxuser rw,
+  /dev/tty r,
+  /home/user/.config/oxygen-gtk/* rwk,
+  @{HOME}/.kde/share/config/* rwk,
+  @{PROC}/ r,
+  @{PROC}/uptime r,
+  @{PROC}/[0-9]*/cmdline r,
+  @{PROC}/[0-9]*/status r,
+  @{PROC}/sys/kernel/pid_max r,
+  /bin/dash rix,
+  /bin/ps rix,
+  /usr/bin/kde4-config rix,
 }
